@@ -1,0 +1,34 @@
+{
+  "name": "handlebars-echo",
+  "version": "1.0.0",
+  "description": "Handlebars utility helper to output a navigable, visual representation of data",
+  "main": "echo.js",
+  "scripts": {
+    "test": "npm run test:mocha",
+    "test:mocha": "./node_modules/.bin/mocha ./test/ -t 6000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TREFZ/handlebars-echo.git"
+  },
+  "keywords": [
+    "handlebars",
+    "helper",
+    "echo",
+    "dump"
+  ],
+  "author": "Nick Trefz",
+  "license": "SEE LICENSE FILE",
+  "bugs": {
+    "url": "https://github.com/TREFZ/handlebars-echo/issues"
+  },
+  "homepage": "https://github.com/TREFZ/handlebars-echo#readme",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-string": "^1.5.0",
+    "mocha": "^7.1.0"
+  }
+}

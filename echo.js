@@ -24,7 +24,7 @@ const echo = (context, isRoot = true) => {
     output += `
       <input id="${inputId}" type="checkbox" class="echo"  ${isRoot ? ' checked' : ''} />
       <span class="type"> array:${context.length}</span> [<label for="${inputId}"></label>
-      <ol>${_.map(context, (value, index) => `<li>${index}: ${echo(value, false)}</li>`).join('')}</ol>]
+      <ol>${context.map((value, index) => `<li>${index}: ${echo(value, false)}</li>`).join('')}</ol>]
       ${isRoot ? '</div>' : ''}
     `;
   } else if (_.isPlainObject(context)) {

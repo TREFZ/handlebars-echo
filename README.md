@@ -1,4 +1,7 @@
 A Handlebars utility helper to output a navigable, visual representation of data.
+
+![Example echo output](/example.png?raw=true "Example echo output")
+
 ## Installation
 ```bash
 npm i --save handlebars-echo
@@ -13,7 +16,7 @@ Handlebars.registerHelper('echo', echo);
 
 ## Usage
 ```handlebars
-<!-- View the root object -->
+<!-- View the root context -->
 {{{ echo @root }}}
 
 <!-- View the currently scoped context -->

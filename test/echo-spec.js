@@ -10,7 +10,7 @@ describe('echo', () => {
     expect(echo('')).to.endsWith('</style><div class="echo"><span class="string">""</span></div>');
   });
   it('escaped html string', () => {
-    expect(echo('<p>test</p>')).to.endsWith('</style><div class="echo"><span class="string">"&lt;p&gt;test&lt;&#x2F;p&gt;"</span></div>');
+    expect(echo('<p>test</p>')).to.endsWith('</style><div class="echo"><span class="string">"&lt;p&gt;test&lt;/p&gt;"</span></div>');
   });
   it('array', () => {
     const echoHTML = echo(['a', 'b', 'c']);

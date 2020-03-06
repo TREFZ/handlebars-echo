@@ -1,3 +1,5 @@
+# handlebars-echo
+
 Echo is a debugging tool. A Handlebars helper to output a navigable, visual representation of data.
 
 ![Example echo output](/example.png?raw=true "Example echo output")

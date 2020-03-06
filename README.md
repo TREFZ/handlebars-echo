@@ -1,4 +1,4 @@
-A Handlebars utility helper to output a navigable, visual representation of data.
+Echo is a debugging tool. A Handlebars helper to output a navigable, visual representation of data.
 
 ![Example echo output](/example.png?raw=true "Example echo output")
 
@@ -21,6 +21,9 @@ Handlebars.registerHelper('echo', echo);
 
 <!-- View the currently scoped context -->
 {{{ echo this }}}
+
+<!-- View anything! -->
+{{{ echo path.to.my.nested.value }}}
 ```
 
 ## License

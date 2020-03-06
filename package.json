@@ -5,7 +5,7 @@
   "main": "echo.js",
   "scripts": {
     "test": "npm run test:mocha",
-    "test:mocha": "./node_modules/.bin/mocha ./test/ -t 6000"
+    "test:mocha": "./node_modules/.bin/mocha ./test/"
   },
   "repository": {
     "type": "git",
@@ -23,12 +23,16 @@
     "url": "https://github.com/TREFZ/handlebars-echo/issues"
   },
   "homepage": "https://github.com/TREFZ/handlebars-echo#readme",
-  "dependencies": {
-    "lodash": "^4.17.15"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-string": "^1.5.0",
+    "cheerio": "^1.0.0-rc.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
     "mocha": "^7.1.0"
   }
 }

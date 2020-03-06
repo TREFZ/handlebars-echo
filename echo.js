@@ -1,6 +1,4 @@
-const _ = require('lodash');
-
-const css = '<style type="text/css">div.echo{background:#24272e;color:#a1a9b7;padding:20px;overflow-x:scroll;white-space:nowrap;font-size:12px;font-family:Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;line-height:normal}input.echo{display:none}input.echo~label{display:inline-block;position:relative;margin:0 5px;padding:0;width:10px;height:10px;vertical-align:baseline;font-size:14px}input.echo~label:before{position:absolute;top:0;left:0;content:"\\25ba";cursor:pointer;color:#56a6ed;font-size:10px;font-family:courier;line-height:1}input.echo:checked~label:before{content:"\\25bc"}input.echo~ol{position:relative;display:none;list-style-type:none;padding:0 0 0 20px;margin:0}input.echo:checked~ol{display:block}input.echo~ol li{align-items:center;color:#a1a9b7;position:relative;margin:0;padding:0}div.echo .type{color:#e1b870}div.echo .string{color:#8dbb6e}div.echo .other{color:#cb8f5b}</style>';
+const css = '<style type="text/css">div.echo{background:#24272e!important;color:#a1a9b7!important;padding:20px!important;overflow-x:scroll!important;white-space:nowrap!important;font-size:12px!important;font-family:Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace!important;line-height:normal!important}input.echo{display:none!important}input.echo~label{display:inline-block!important;position:relative!important;margin:0 5px!important;padding:0!important;width:10px!important;height:10px!important;vertical-align:baseline!important;font-size:14px!important}input.echo~label:before{position:absolute!important;top:0!important;left:0!important;content:"\\25ba"!important;cursor:pointer!important;color:#56a6ed!important;font-size:10px!important;font-family:courier!important;line-height:1!important}input.echo:checked~label:before{content:"\\25bc"}input.echo~ol{position:relative!important;display:none!important;list-style-type:none!important;padding:0 0 0 20px!important;margin:0!important}input.echo:checked~ol{display:block!important}input.echo~ol li{align-items:center!important;color:#a1a9b7!important;position:relative!important;margin:0!important;padding:0!important}div.echo .type{color:#e1b870!important}div.echo .string{color:#8dbb6e!important}div.echo .other{color:#cb8f5b!important}</style>';
 
 // Unique id for each input+label combination.
 const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -16,26 +14,50 @@ const generateRandomString = () => {
   return rtn;
 };
 
+const isPlainObject = context => {
+  if (typeof context === 'object' && context !== null) {
+    if (typeof Object.getPrototypeOf === 'function') {
+      const proto = Object.getPrototypeOf(context);
+      return proto === Object.prototype || proto === null;
+    }
+    return Object.prototype.toString.call(context) === '[object Object]';
+  }
+  return false;
+};
+
+const escape = str => {
+  const htmlEscaper = /[&<>"'/]/g;
+  const htmlEscapes = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '/': '&#x2F;'
+  };
+  return (`${str}`).replace(htmlEscaper, match => htmlEscapes[match]);
+};
+
 const echo = (context, isRoot = true) => {
   const inputId = generateRandomString();
   let output = isRoot ? `${css}<div class="echo">` : '';
 
-  if (_.isArray(context)) {
+  if (Array.isArray(context)) {
     output += `
-      <input id="${inputId}" type="checkbox" class="echo"  ${isRoot ? ' checked' : ''} />
-      <span class="type"> array:${context.length}</span> [<label for="${inputId}"></label>
-      <ol>${context.map((value, index) => `<li>${index}: ${echo(value, false)}</li>`).join('')}</ol>]
-      ${isRoot ? '</div>' : ''}
-    `;
-  } else if (_.isPlainObject(context)) {
+<input id="${inputId}" type="checkbox" class="echo"  ${isRoot ? ' checked' : ''} />
+<span class="type"> array:${context.length}</span> [<label for="${inputId}"></label>
+<ol>${context.map((value, index) => `<li>${index}: ${echo(value, false)}</li>`).join('')}</ol>]
+${isRoot ? '</div>' : ''}
+`;
+  } else if (isPlainObject(context)) {
     output += `
-        <input id="${inputId}" type="checkbox" class="echo" ${isRoot ? ' checked' : ''} />
-        {<label for="${inputId}"></label>
-        <ol>${_.map(context, (value, key) => `<li><span class="string">"${key}"</span>: ${echo(value, false)}</li>`).join('')}</ol>}
-    `;
-  } else if (_.isString(context)) {
-    output += `<span class="string">"${_.escape(context)}"</span>`;
-  } else if (_.isFunction(context)) {
+<input id="${inputId}" type="checkbox" class="echo" ${isRoot ? ' checked' : ''} />
+{<label for="${inputId}"></label>
+<ol>${Object.entries(context).map(([key, value]) => `<li><span class="string">"${key}"</span>: ${echo(value, false)}</li>`).join('')}</ol>}
+`;
+  } else if (typeof context === 'string') {
+    output += `<span class="string">"${escape(context)}"</span>`;
+  } else if (typeof context === 'function') {
     output += '<span class="type">function</span>';
   } else {
     output += `<span class="other">${context}</span>`;

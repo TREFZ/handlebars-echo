@@ -1,6 +1,6 @@
 {
   "name": "handlebars-echo",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Handlebars utility helper to output a navigable, visual representation of data",
   "main": "echo.js",
   "scripts": {

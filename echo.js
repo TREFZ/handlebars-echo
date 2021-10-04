@@ -24,6 +24,7 @@ function input(echoId) {
 function script(echoId) {
   return `<script type="text/javascript" data-echo="${echoId}">
 window.handlebarsEcho = window.handlebarsEcho || function handlebarsEcho(echoId) {
+  if (!echoId) return;
   const echoContainer = document.querySelector(\`div.echo[data-echo="\${echoId}"]\`);
   const echoInput = echoContainer.querySelector('input.echo-path-input');
   const echoDisplay = echoContainer.querySelector('.echo-display');
@@ -105,7 +106,7 @@ window.handlebarsEcho = window.handlebarsEcho || function handlebarsEcho(echoId)
       // hilight and expand exach match
       if (exactMatch) {
         const checkbox = document.querySelector(\`input[type="checkbox"][data-path="\${pathNode.dataset.path}"]\`);
-        if (checkbox && !checkbox.checked) {
+        if (checkbox) {
           checkbox.setAttribute('checked', '');
           checkbox.checked = true;
           openAncestor(checkbox);

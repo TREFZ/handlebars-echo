@@ -4,8 +4,8 @@
   "description": "Handlebars utility helper to output a navigable, visual representation of data",
   "main": "echo.js",
   "scripts": {
-    "test": "npm run test:mocha",
-    "test:mocha": "./node_modules/.bin/mocha ./test/"
+    "lint": "eslint .",
+    "test": "node --test ./test/*.js"
   },
   "repository": {
     "type": "git",
@@ -24,17 +24,11 @@
   },
   "homepage": "https://github.com/TREFZ/handlebars-echo#readme",
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.18.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-string": "^1.5.0",
+    "@eslint/js": "^9.39.2",
     "cheerio": "^1.0.0-rc.3",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-node": "^11.0.0",
-    "mocha": "^7.1.1"
+    "eslint": "^9.39.2"
   }
 }

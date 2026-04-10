@@ -49,7 +49,7 @@ window.handlebarsEcho = window.handlebarsEcho || function handlebarsEcho(echoId)
 
   function buildAutocomplete(echoPath = '', exactMatch = true) {
     // We don't want to re-draw if the path ends in a . (dot)
-    const cleanEchoPath = echoPath.replace(/\.$/, '');
+    const cleanEchoPath = echoPath.replace(/[.]$/, '');
     if (previousEchoPath && cleanEchoPath === previousEchoPath) return;
 
     // Get the root node so we can try to build our autocomplete list
@@ -165,6 +165,5 @@ ${isRoot ? '</div>' : ''}
 
   return output;
 };
-
 
 module.exports = echo;

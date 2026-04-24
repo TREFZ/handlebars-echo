@@ -1,4 +1,5 @@
 const js = require('@eslint/js');
+const globals = require('globals');
 
 module.exports = [
   js.configs.recommended,
@@ -7,6 +8,9 @@ module.exports = [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+      },
     },
     rules: {
       'arrow-parens': ['error', 'as-needed'],
@@ -20,8 +24,7 @@ module.exports = [
     files: ['test/**/*.js'],
     languageOptions: {
       globals: {
-        describe: 'readonly',
-        it: 'readonly',
+        ...globals.node,
       },
     },
   },

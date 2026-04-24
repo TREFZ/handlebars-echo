@@ -1,10 +1,27 @@
-const escape = require('lodash/escape');
-const isPlainObject = require('lodash/isPlainObject');
-
 const css = '<style type="text/css">div.echo{position:relative;background:#24272e!important;color:#a1a9b7!important;padding:40px 20px 20px 20px!important;white-space:nowrap!important;font-size:12px!important;font-family:Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace!important;line-height:normal!important}.echo-display {overflow-x:scroll!important;position:absolute;left:0;top:40px;bottom:0;right:0;padding:20px;}input.echo{display:none!important}input.echo~label{display:inline-block!important;position:relative!important;margin:0 5px!important;padding:0!important;width:10px!important;height:10px!important;vertical-align:baseline!important;font-size:14px!important}input.echo~label:before{position:absolute!important;top:0!important;left:0!important;content:"\\25ba"!important;cursor:pointer!important;color:#56a6ed!important;font-size:10px!important;font-family:courier!important;line-height:1!important}input.echo:checked~label:before{content:"\\25bc"!important}input.echo~ol{position:relative!important;display:none!important;list-style-type:none!important;padding:0 0 0 20px!important;margin:0!important}input.echo:checked~ol{display:block!important}input.echo~ol li{align-items:center!important;color:#a1a9b7!important;position:relative!important;margin:0!important;padding:0!important}div.echo .type{color:#e1b870!important}div.echo .string{color:#8dbb6e!important}div.echo .other{color:#cb8f5b!important}.echo-path-input {position:absolute;top:10px;border:none;border-bottom:1px solid white;font-size:16px;color:white;outline:none;background:transparent;}div.echo .hilight .key,div.echo .hilight .value {color:#ffffff!important;padding:1px;}div.echo .array-item.hilight{color:#ffffff!important;}</style>';
 
 const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const ID_LENGTH = 8;
+const ESCAPE_LOOKUP = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+};
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, character => ESCAPE_LOOKUP[character]);
+}
+
+function isPlainObject(value) {
+  if (Object.prototype.toString.call(value) !== '[object Object]') {
+    return false;
+  }
+
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === null || prototype === Object.prototype;
+}
 
 function generateRandomString() {
   let rtn = '';
@@ -154,7 +171,7 @@ ${isRoot ? '</div>' : ''}
 <ol>${Object.entries(context).map(([key, value]) => `<li data-path="${path}.${key}"><span class="string key">"${key}"</span>: ${echo(value, false, `${path}.${key}`)}</li>`).join('')}</ol>}
 `;
   } else if (typeof context === 'string') {
-    output += `<span class="string value">"${escape(context)}"</span>`;
+    output += `<span class="string value">"${escapeHTML(context)}"</span>`;
   } else if (typeof context === 'function') {
     output += '<span class="type value">function</span>';
   } else {
